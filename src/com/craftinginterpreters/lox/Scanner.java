@@ -76,6 +76,8 @@ public class Scanner {
                 if (match('/')) {
                     // A comment goes until the end of the line (and the parser doesn't care about them).
                     while (peek() != '\n' && !isAtEnd()) advance();
+                } else if (match('*')) {
+                    blockComment();
                 } else {
                     addToken(SLASH);
                 }
@@ -193,5 +195,19 @@ public class Scanner {
         TokenType type = keywords.get(text);
         if (type == null) type = IDENTIFIER;
         addToken(type);
+    }
+
+    private void blockComment() {
+        while (!isAtEnd()) {
+            if (peek() == '*' && peekNext() =='/') {
+                // The closing "*/"
+                advance();
+                advance();
+                return;
+            } else if (peek() == '\n') {
+                line++;
+            }
+            advance();
+        }
     }
 }
