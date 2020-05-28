@@ -40,7 +40,9 @@ public class Interpreter implements Expr.Visitor<Object> {
                     return (double)left + (double)right;
                 }
 
-                if (left instanceof String && right instanceof String) {
+                if (left instanceof String || right instanceof String) {
+                    if (!(right instanceof String)) return (String) left + stringify(right);
+                    if (!(left instanceof String)) return stringify(left) + (String)right;
                     return (String)left + (String)right;
                 }
 
