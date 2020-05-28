@@ -99,6 +99,31 @@ public class Parser {
             return new Expr.Grouping(expr);
         }
 
+        // Error productions
+        if (match(BANG_EQUAL, EQUAL_EQUAL)) {
+            Lox.error(previous(), "Missing left-hand operand.");
+            equality();
+            return null;
+        }
+
+        if (match(GREATER, GREATER_EQUAL, LESS, LESS_EQUAL)) {
+            Lox.error(previous(), "Missing left-hand operand.");
+            comparison();
+            return null;
+        }
+
+        if (match(PLUS)) {
+            Lox.error(previous(), "Missing left-hand operand.");
+            addition();
+            return null;
+        }
+
+        if (match(SLASH, STAR)) {
+            Lox.error(previous(), "Missing left-hand operand.");
+            multiplication();
+            return null;
+        }
+
         throw error(peek(), "Expect expression.");
     }
 
