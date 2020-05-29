@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GenerateAst {
-    static boolean firstType = true;
-
     public static void main(String[] args) throws IOException {
         if (args.length != 1) {
             System.err.println("Usage: generate_ast <output directory>");
@@ -20,6 +18,11 @@ public class GenerateAst {
             "Grouping: Expr expression",
             "Literal : Object value",
             "Unary   : Token operator, Expr right"
+        ));
+
+        defineAst(outputDir, "Stmt", Arrays.asList(
+            "Expression : Expr expression",
+            "Print      : Expr expression"
         ));
     }
 
@@ -36,12 +39,10 @@ public class GenerateAst {
         defineVisitor(writer, baseName, types);
 
         // The AST classes
-        firstType = true;
         for (String type: types) {
             String className = type.split(":")[0].trim();
             String fields = type.split(":")[1].trim();
             defineType(writer, baseName, className, fields);
-            firstType = false;
         }
 
         // The base accept() method
@@ -64,9 +65,7 @@ public class GenerateAst {
     }
 
     private static void defineType(PrintWriter writer, String baseName, String className, String fieldList) {
-        if (!firstType) {
-            writer.println();
-        }
+        writer.println();
         writer.println("    static class " + className + " extends " + baseName + " {");
 
         // Constructor
