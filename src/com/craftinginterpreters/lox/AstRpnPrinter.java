@@ -34,6 +34,11 @@ public class AstRpnPrinter implements Expr.Visitor<String> {
         return expr.right.accept(this) + " " + operator;
     }
 
+    @Override
+    public String visitVariableExpr(Expr.Variable expr) {
+        return expr.name.lexeme;
+    }
+
     public static void main(String[] args) {
         Expr expression = new Expr.Binary(
             new Expr.Grouping(
