@@ -54,6 +54,7 @@ public class Lox {
             if (hadError) continue;
 
             if (syntax instanceof List) {
+                //noinspection unchecked
                 interpreter.interpret((List<Stmt>)syntax);
             } else if (syntax instanceof Expr) {
                 String result = interpreter.intepret((Expr) syntax);
