@@ -1,7 +1,7 @@
 var a = 10;
 var b = 2;
-if (a > b) {
-    print "a is greater than b";
+if (true == false and a > b) {
+    print "This is the 'then' branch";
 } else {
-    print "a is not greater than b";
+    print "This is the 'else' branch";
 }
