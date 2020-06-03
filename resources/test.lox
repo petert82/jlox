@@ -1,10 +1,13 @@
-fun fibonacci(n) {
-    if (n <= 1) return 1;
-    return fibonacci(n - 2) + fibonacci(n - 1);
+fun makeCounter() {
+    var i = 0;
+    fun count() {
+        i = i + 1;
+        print i;
+    }
+
+    return count;
 }
 
-var start = clock();
-for (var i = 0; i < 20; i = i + 1) {
-    print fibonacci(i);
-}
-print "Took: " + (clock() - start) + "s";
+var counter = makeCounter();
+counter();
+counter();
