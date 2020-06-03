@@ -1,5 +1,10 @@
-fun sayHi(first, last) {
-    print "Hi, " + first + " " + last;
+fun fibonacci(n) {
+    if (n <= 1) return 1;
+    return fibonacci(n - 2) + fibonacci(n - 1);
 }
 
-sayHi("Peter", "Thompson");
+var start = clock();
+for (var i = 0; i < 20; i = i + 1) {
+    print fibonacci(i);
+}
+print "Took: " + (clock() - start) + "s";
