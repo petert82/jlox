@@ -41,7 +41,8 @@ public class Lox {
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader reader = new BufferedReader(input);
 
-        // todo Include a resolution step in here
+        Resolver resolver = new Resolver(interpreter);
+
         for (; ; ) {
             hadError = false;
 
@@ -56,8 +57,15 @@ public class Lox {
 
             if (syntax instanceof List) {
                 //noinspection unchecked
+                resolver.resolve((List<Stmt>)syntax);
+                if (hadError) continue;
+
+                //noinspection unchecked
                 interpreter.interpret((List<Stmt>)syntax);
             } else if (syntax instanceof Expr) {
+                resolver.resolve((Expr)syntax);
+                if (hadError) continue;
+
                 String result = interpreter.intepret((Expr) syntax);
                 if (result != null) {
                     System.out.println("= " + result);
