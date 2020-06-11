@@ -6,4 +6,5 @@ class DevonshireCream {
 
 var cream = DevonshireCream();
 cream.milk = "Full fat";
-print cream.milk;
+var serveCreamOn = cream.serveOn;
+print serveCreamOn();
