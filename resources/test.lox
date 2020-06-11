@@ -1,10 +1,15 @@
-class DevonshireCream {
-    serveOn() {
-        return "Scones";
+class Cake {
+    taste() {
+        var adjective = "delicious";
+        print "The " + this.flavour + " cake is " + adjective + "!";
     }
 }
 
-var cream = DevonshireCream();
-cream.milk = "Full fat";
-var serveCreamOn = cream.serveOn;
-print serveCreamOn();
+var chocolateCake = Cake();
+chocolateCake.flavour = "chocolate";
+var chocTaste = chocolateCake.taste;
+
+var lemonCake = Cake();
+lemonCake.flavour = "lemon";
+lemonCake.taste = chocTaste;
+lemonCake.taste();
