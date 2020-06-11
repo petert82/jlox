@@ -19,6 +19,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
     private final Interpreter interpreter;
     private final Stack<Map<String, Boolean>> scopes = new Stack<>();
+    private boolean inLoop = false;
     private ClassType currentClass = ClassType.NONE;
     private FunctionType currentFunction = FunctionType.NONE;
 
@@ -36,6 +37,10 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitBreakStmt(Stmt.Break stmt) {
+        if (!inLoop) {
+            Lox.error(stmt.keyword, "Must be in a loop to use 'break'.");
+        }
+
         return null;
     }
 
@@ -114,8 +119,11 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitWhileStmt(Stmt.While stmt) {
+        boolean wasInLoop = inLoop;
+        inLoop = true;
         resolve(stmt.condition);
         resolve(stmt.body);
+        inLoop = wasInLoop;
         return null;
     }
 
