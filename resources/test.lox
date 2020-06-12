@@ -9,7 +9,12 @@ class Cake {
     }
 }
 
-class LemonDrizzleCake < Cake {}
+class LemonDrizzleCake < Cake {
+    taste() {
+        super.taste();
+        print "With extra lemon!";
+    }
+}
 
 var chocolateCake = Cake("chocolate", "delicious");
 var lemonCake = LemonDrizzleCake("lemon", "lemony");
