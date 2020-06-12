@@ -9,8 +9,10 @@ class Cake {
     }
 }
 
+class LemonDrizzleCake < Cake {}
+
 var chocolateCake = Cake("chocolate", "delicious");
-var lemonCake = Cake("lemon", "ok");
+var lemonCake = LemonDrizzleCake("lemon", "lemony");
 
 chocolateCake.taste();
 lemonCake.taste();
